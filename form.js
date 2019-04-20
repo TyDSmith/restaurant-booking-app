@@ -17,6 +17,18 @@ function submitFormInfo(){
    };
 
    restarauntArray.push(newReservation);
-   
-   console.log(restarauntArray)
+
+   console.log(restarauntArray);
+
+   displayReservations(newReservation);
+}
+
+function displayReservations(newReservation){
+
+    console.log("passed through")
+
+    for(i=0;i<restarauntArray.length;i++){
+        $('#display-reservations').append(restarauntArray[i].name)
+    }
+
 }
