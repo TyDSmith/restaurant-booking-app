@@ -146,3 +146,15 @@
 	color:#ffc001;
 	
 }
+
+.singleReservationCard{
+	color:#101113;
+	background: #f5f5f5;
+	border-radius: 3px;
+	margin: 5px 0px;
+	padding: 10px;
+}
+
+.reservationNameOutput{
+	font-weight: 800;
+}
