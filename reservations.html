@@ -16,30 +16,72 @@
 	<!-- Custom stylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 
-	<!-- Link javascript for form submission -->
-	<script src="./form.js"></script>
 	<!-- Import jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Link javascript for form submission -->
+	<!-- <script src="./form.js"></script> -->
 </head>
 
-<body onload="displayReservations()">
+<body>
 	<div id="booking" class="section">
 		<div class="section-center">
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
 						<div class="form-header">
-                            <h1>Current Reservations</h1>
-                            <div id="display-reservations"></div>
-                            <div class="booking-form showReservations">
-                                    <p><a href="./index.html">Make a Reservation</a><p>
-                                </div>
-                        </div>
+							<h1>Current Reservations</h1>
+							<div id="reservationList">
+
+							</div>
+							<h1>Waiting List</h1>
+							<div id="waitingList">
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+<script>
+
+function runQuery () {
+	
+		// Here we get the location of the root page.
+		// We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+		var currentURL = window.location.origin;
+
+		// The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+		$.ajax({url: currentURL + "/api/reservations", method: "GET"})
+			.done(function(tableData) {
+
+				// Here we are logging the URL so we have access to it for troubleshooting
+				console.log("------------------------------------");
+				console.log("URL: " + currentURL + "/api/tables");
+				console.log("------------------------------------");
+
+				// Here we then log the NYTData to console, where it will show up as an object.
+				console.log(tableData);
+				console.log("------------------------------------");
+
+				for (let i = 0; i < tableData.length; i++) {
+					console.log (tableData[i].name,tableData[i].partySize);	
+					if (i < 5) {
+						$("#reservationList").append("<div id='reservation" + i+1 + "' style='color: white;'>Name: " + tableData[i].name + " Party Size: " + tableData[i].partySize + "</div>");
+					} else {
+						$("#waitingList").append("<div id='reservation" + i+1 + "' style='color: white;'>Name: " + tableData[i].name + " Party Size: " + tableData[i].partySize + "</div>");
+					}
+					
+				}
+			});
+
+}
+
+runQuery();
+</script>
 </body>
 
 </html>
