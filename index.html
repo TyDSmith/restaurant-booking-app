@@ -16,10 +16,11 @@
 	<!-- Custom stylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 
-	<!-- Link javascript for form submission -->
-	<script src="./form.js"></script>
 	<!-- Import jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Link javascript for form submission -->
+	<!-- <script src="./form.js"></script> -->
+	
 </head>
 
 <body>
@@ -78,17 +79,41 @@
 								</div>
 							</div>
 							<div class="form-btn">
-								<button class="submit-btn" id="form-submit" type="button" onclick="submitFormInfo()">Book Now</button>
+								<button class="submit-btn" id="form-submit" type="button">Book Now</button>
 							</div>
 							<div class="booking-form showReservations">
 									<p><a href="./reservations.html">Show Current Reservations</a><p>
-							</div>
+								</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+	
+	// Question: What does this code do?
+		$("#form-submit").on("click", function(event) {
+		console.log ("button Click")
+		  event.preventDefault();
+		  
+		  var newReservation = {
+		    name: $("#form-name").val().trim(),
+		    email: $("#form-email").val().trim(),
+		    phone: $("#form-phone").val().trim(),
+		    partySize: $("#form-party-size").val().trim()
+		  };
+		  console.log (newReservation);
+		  // Question: What does this code do??
+		  $.post("/api/reservations", newReservation)
+		    .then(function(data) {
+		      console.log("reservations.html", data);
+		      alert("Reservation Added...");
+		    });
+		});
+	
+	</script>
 	
 </body>
 
