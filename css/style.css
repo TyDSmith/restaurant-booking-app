@@ -1,6 +1,7 @@
 .section {
 	position: relative;
 	height: 100vh;
+	overflow-y: auto;
 }
 
 .section .section-center {
@@ -17,6 +18,7 @@
 	background-image: url('../img/restaurant-background.jpg');
 	background-size: cover;
 	background-position: center;
+	overflow-y: auto;
 }
 
 #booking::before {
@@ -137,15 +139,33 @@
 	text-align: center;
 	padding: 20px;
 	margin-top:5px;
-	background: #101113;
+	background: #ffc001;
 	border-radius: 3px;
+	color: #101113
 }
 
 .showReservations a{
 	text-align: center;
-	color:#ffc001;
-	
+	color: #101113;
+	font-weight: 800;
+	font-size: 14px;
 }
+.showReservations1 {
+	text-align: center;
+	padding: 20px;
+	margin-top:5px;
+	border-radius: 3px;
+
+}
+
+.showReservations1 a{
+	text-align: center;
+	font-weight: 800;
+	font-size: 14px;
+	color: #ffc001
+}
+
+
 
 .singleReservationCard{
 	color:#101113;
@@ -157,4 +177,22 @@
 
 .reservationNameOutput{
 	font-weight: 800;
+}
+
+#success-message{
+	text-align: center;
+	color:#ffffff;
+	padding: 5px;
+}
+
+#success-message a{
+	color:#ffc001;
+}
+
+#display-waitlist{
+	
+}
+
+#display-waitlist h2{
+	color: #ffc001;
 }

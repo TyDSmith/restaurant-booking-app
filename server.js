@@ -1,3 +1,101 @@
+//Activity 6
+// Dependencies
+// =============================================================
+var express = require("express");
+var path = require("path");
+
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = 3000;
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname)));
+
+// Reservations (DATA)
+// =============================================================
+
+var reservations = [
+  {
+    name: "Ty Smith 1",
+    email: "Ty.Smith1@gmail.com",
+    phone: 1111111111,
+    partySize: 2,
+  },
+  {
+    name: "Ty Smith 2",
+    email: "Ty.Smith2@gmail.com",
+    phone: 1111111111,
+    partySize: 2,
+  },
+  {
+    name: "Orlando",
+    email: "Orlando3@gmail.com",
+    phone: 1111111111,
+    partySize: 4,
+  },
+  {
+    name: "Orlando",
+    email: "Orlando4@gmail.com",
+    phone: 1111111111,
+    partySize: 4,
+  },
+  {
+    name: "Tommy",
+    email: "Orlando5@gmail.com",
+    phone: 1111111111,
+    partySize: 4,
+  },
+  {
+    name: "Tommy",
+    email: "Orlando6@gmail.com",
+    phone: 1111111111,
+    partySize: 4,
+  },
+];
+
+
+// Routes
+// =============================================================
+
+// Basic route that sends the user first to the AJAX Page
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/reserverations", function(req, res) {
+    res.sendFile(path.join(__dirname, "reservations.html"));
+});
+
+// Displays all characters
+app.get("/api/reservations", function(req, res) {
+  return res.json(reservations);
+});
+
+// Create New Characters - takes in JSON input
+app.post("/api/reservations", function(req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body parsing middleware
+  var newReservation = req.body;
+
+  console.log(newReservation);
+  //newReservation(newReservation);
+
+  reservations.push(newReservation);
+
+  res.json(newReservation);
+});
+
+// Starts the server to begin listening
+// =============================================================
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+}); 
+
+// MySQL
+
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
@@ -7,84 +105,35 @@ var connection = mysql.createConnection({
   port: 3306,
 
   // Your username
-  user: "mountain_lions",
+  user: "webuser",
 
   // Your password
-  password: "password",
-  database: "lions_den"
+  password: "secretPassword",
+  database: "restaurant"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("connected as id " + connection.threadId + "\n");
-  createReservation();
+  console.log("connected as id " + connection.threadId);
 });
 
-function createReservation() {
-  console.log("Inserting a new product...\n");
-  var query = connection.query(
-    "INSERT INTO reservations SET ?",
-    {
-      name: "test name",
-      email: "test email",
-      phone: "9513321568",
-      party_size: 10,
-    },
-    function(err, res) {
-        if (err){
-            console.log(err);
-        }
-    }
-  );
+function newReservation () {
+  for (let i = 0; i < reservations.length; i++) {
 
-  // logs the actual query being run
-  console.log(query.sql);
-}
-
-/*function updateProduct() {
-  console.log("Updating all Rocky Road quantities...\n");
-  var query = connection.query(
-    "UPDATE products SET ? WHERE ?",
-    [
+    connection.query(
+      "INSERT INTO reservations SET ?",
       {
-        quantity: 100
+          name: reservations[i].name,
+          email: reservations[i].email,
+          phone: reservations[i].phone,
+          party_size: reservations[i].partySize 
       },
-      {
-        flavor: "Rocky Road"
-      }
-    ],
-    function(err, res) {
-      console.log(res.affectedRows + " products updated!\n");
-      // Call deleteProduct AFTER the UPDATE completes
-      deleteProduct();
-    }
-  );
+      function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + " products updated!\n");
+          connection.end();
+      });
+  }
+};
 
-  // logs the actual query being run
-  console.log(query.sql);
-}
-
-function deleteProduct() {
-  console.log("Deleting all strawberry icecream...\n");
-  connection.query(
-    "DELETE FROM products WHERE ?",
-    {
-      flavor: "strawberry"
-    },
-    function(err, res) {
-      console.log(res.affectedRows + " products deleted!\n");
-      // Call readProducts AFTER the DELETE completes
-      readProducts();
-    }
-  );
-}
-
-function readProducts() {
-  console.log("Selecting all products...\n");
-  connection.query("SELECT * FROM products", function(err, res) {
-    if (err) throw err;
-    // Log all results of the SELECT statement
-    console.log(res);
-    connection.end();
-  });
-}*/
+//newReservation();
