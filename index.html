@@ -22,7 +22,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body onload="setup()">
 	<div id="booking" class="section">
 		<div class="section-center">
 			<div class="container">
@@ -79,8 +79,9 @@
 							</div>
 							<div class="form-btn">
 								<button class="submit-btn" id="form-submit" type="button" onclick="submitFormInfo()">Book Now</button>
+								<div id="success-message">Thank you! Your table has been reserved! <a href="">Make another reservation?</a></div>
 							</div>
-							<div class="booking-form showReservations">
+							<div class="booking-form showReservations1">
 									<p><a href="./reservations.html">Show Current Reservations</a><p>
 							</div>
 						</form>
