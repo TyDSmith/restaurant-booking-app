@@ -1,0 +1,24 @@
+{
+  "name": "restaurant-booking-app-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "form.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TyDSmith/restaurant-booking-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TyDSmith/restaurant-booking-app/issues"
+  },
+  "homepage": "https://github.com/TyDSmith/restaurant-booking-app#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.17.1"
+  }
+}
