@@ -63,6 +63,7 @@ var reservations = [
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
+  getData();
 });
 
 app.get("/reserverations", function(req, res) {
@@ -105,17 +106,23 @@ var connection = mysql.createConnection({
   port: 3306,
 
   // Your username
-  user: "webuser",
+  user: "finley",
 
   // Your password
-  password: "secretPassword",
-  database: "restaurant"
+  password: "password",
+  database: "lions_den"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
 });
+
+function getData(){
+  connection.query("SELECT * FROM reservations", function(err, result){
+    console.log("result")
+  })
+}
 
 function newReservation () {
   for (let i = 0; i < reservations.length; i++) {
